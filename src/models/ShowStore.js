@@ -27,11 +27,6 @@ const ShowStore = types
       const result = yield fetchShows(ParamsStore);
 
       if (ParamsStore.page > 1) {
-        console.log(
-          ParamsStore.page,
-          JSON.parse(JSON.stringify(self.shows)),
-          result
-        );
         let res = [ ...self.shows,...result ];
         self.shows = res;
       } else {
