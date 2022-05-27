@@ -53,32 +53,37 @@ const Form = inject(
               onChange={handleChange}
             />
             <Button
-              backgroundColor={"teal.500"}
+              backgroundColor={"#67C7EB"}
+              color={"white"}
+              _hover={{ backgroundColor: "#6A0C0B" }}
               type={"submit"}
               onClick={handleSubmit}>
               Search
             </Button>{" "}
           </Box>
           <Box display={"block"} textAlign={"-webkit-center"} margin={"8px"}>
-
-          <Select id="show" maxW={"20%"}>
-            <option>Movies</option>
-            <option>Series</option>
-          </Select>
-          <Stack spacing={6} direction="row" justifyContent={"center"} margin={"8px"}>
-            <RadioGroup
-              id={"radio"}
-              defaultValue="ASC"
-              onChange={handleRadioChange}>
-              <Radio colorScheme="cyan" value="ASC" marginRight={"32px"}>
-                Ascending
-              </Radio>
-              <Radio colorScheme="teal" value="DESC">
-                Descending
-              </Radio>
-            </RadioGroup>
-          </Stack>          </Box>
-
+            <Select id="show" maxW={"20%"}>
+              <option>Movies</option>
+              <option>Series</option>
+            </Select>
+            <Stack
+              spacing={6}
+              direction="row"
+              justifyContent={"center"}
+              margin={"8px"}>
+              <RadioGroup
+                id={"radio"}
+                defaultValue="ASC"
+                onChange={handleRadioChange}>
+                <Radio colorScheme="cyan" value="ASC" marginRight={"32px"}>
+                  Ascending
+                </Radio>
+                <Radio colorScheme="teal" value="DESC">
+                  Descending
+                </Radio>
+              </RadioGroup>
+            </Stack>
+          </Box>
         </FormControl>
       </Box>
     );

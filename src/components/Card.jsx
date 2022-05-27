@@ -8,17 +8,26 @@ import {
   Grid,
   Button,
   Link,
+  transition,
 } from "@chakra-ui/react";
 
 const Card = ({ show }) => {
   return (
     <Box
       id={show.id}
+      border={"1px"}
+      borderColor={"gray.100"}
       maxW={"512px"}
       w={"full"}
       maxH={"max-content"}
       h={"max"}
-      boxShadow={"2xl"}
+      transition="ease-in"
+      transitionDuration="0.6s"
+      _hover={{
+        boxShadow: "0.1em 0.1em 0.1em 0.1em #EC1C25",
+        transition: "ease-in",
+        transitionDuration: "0.1s",
+      }}
       rounded={"md"}
       p={9}
       paddingBottom={32}
@@ -82,7 +91,14 @@ const Card = ({ show }) => {
             _hover={{
               textDecoration: "none",
             }}>
-            <Button margin={"8px"}>{`Watch Trailer`}</Button>
+            <Button
+              margin={"8px"}
+              backgroundColor={"#FF0000"}
+              color={"white"}
+              _hover={{
+                backgroundColor: "white",
+                color: "#FF0000",
+              }}>{`Watch Trailer`}</Button>
           </Link>
           <Link
             width={"max-content"}
@@ -91,7 +107,14 @@ const Card = ({ show }) => {
             _hover={{
               textDecoration: "none",
             }}>
-            <Button margin={"8px"}>{` IMDB`}</Button>
+            <Button
+              margin={"8px"}
+              backgroundColor={"#deb522"}
+              color={"#0c0b00"}
+              _hover={{
+                backgroundColor: "#0c0b00",
+                color: "#deb522",
+              }}>{` IMDB`}</Button>
           </Link>
         </Stack>
       </Stack>

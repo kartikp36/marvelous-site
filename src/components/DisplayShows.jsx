@@ -2,7 +2,7 @@ import Card from "./Card";
 import { observer } from "mobx-react-lite";
 import { getSnapshot, onSnapshot } from "mobx-state-tree";
 import { inject } from "mobx-react";
-import { Box, Button, Grid } from "@chakra-ui/react";
+import { Box, Button, Grid, SimpleGrid } from "@chakra-ui/react";
 
 let pages = 1;
 const DisplayShows = inject("ShowStore",
@@ -20,7 +20,7 @@ const DisplayShows = inject("ShowStore",
     };
     return (
       <Box marginX={"auto"} maxW={"84%"}>
-        <Grid
+        <SimpleGrid gridTemplateRows={"masonry"}
           templateColumns={{
             base: "repeat(1, 1fr)",
             md: "repeat(3, 1fr)",
@@ -31,7 +31,7 @@ const DisplayShows = inject("ShowStore",
           {ShowStore.shows.map((show) => (
             <Card key={show.id} show={show} />
           ))}
-        </Grid>
+        </SimpleGrid>
         <Button
           onClick={() => {
             handleClick();

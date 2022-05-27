@@ -14,7 +14,7 @@ const App = inject("ShowStore")(
 
   return (
     <Box className="App" textAlign={"center"} marginY={"2%"}>
-      <Heading size={{ base: "lg", md: "xl", lg: "2xl" }}>MCU</Heading>
+      <Heading size={{ base: "lg", md: "xl", lg: "2xl" }} color={"#AA0505"}>Marvel Cinematic Universe </Heading>
         <Form />
       <DisplayShows />
     </Box>
