@@ -2,24 +2,23 @@ import { Box, Heading } from "@chakra-ui/react";
 import Form from "../components/Form";
 import DisplayShows from "../components/DisplayShows";
 import { useEffect } from "react";
-import Shows from "../models/ShowList";
+import { inject } from 'mobx-react';
+import { observer } from 'mobx-react-lite';
 
-function App() {
-  const schema = {type: 'movies',page: 1, chronology: 'ASC'}
-  const { getShows, shows } = Shows;
+const App = inject("ShowStore")(
+  observer(({ ShowStore }) => {
+  const { getShows } = ShowStore;
   useEffect(() => {
-    getShows(schema);
-    
+    getShows();
   }, []);
 
-  console.log(shows);
   return (
     <Box className="App" textAlign={"center"} marginY={"2%"}>
       <Heading size={{ base: "lg", md: "xl", lg: "2xl" }}>MCU</Heading>
-      <Form />
+        <Form />
       <DisplayShows />
     </Box>
   );
-}
+}))
 
 export default App;
