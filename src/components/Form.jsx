@@ -2,7 +2,6 @@ import React from "react";
 import { Input } from "@chakra-ui/input";
 import {
   FormControl,
-  FormLabel,
   Select,
   RadioGroup,
   Stack,
@@ -22,12 +21,10 @@ const Form = inject(
     const {
       updateChronology,
       updateSearchInput,
-      getShowsFilter,
-      updatePage,
       updateType,
       searchInput,
     } = ParamsStore;
-    let params = JSON.parse(JSON.stringify(ParamsStore));
+    const { updateShowStore } = ShowStore;
     const handleChange = (e) => {
       updateSearchInput(e.target.value ? e.target.value : "");
       console.log(searchInput);
@@ -38,6 +35,11 @@ const Form = inject(
       getShows();
     };
 
+    const handleSelectChange = (e) => {
+      updateType(e.target.value);
+      updateShowStore([]);
+      getShows();
+    };
     const handleSubmit = (e) => {
       getShows();
     };
@@ -59,12 +61,15 @@ const Form = inject(
               type={"submit"}
               onClick={handleSubmit}>
               Search
-            </Button>{" "}
+            </Button>
           </Box>
           <Box display={"block"} textAlign={"-webkit-center"} margin={"8px"}>
-            <Select id="show" maxW={"20%"}>
-              <option>Movies</option>
-              <option>Series</option>
+            <Select
+              id="show"
+              maxW={{ sm: "48%", md: "40%", lg: "24%" }}
+              onChange={handleSelectChange}>
+              <option value={"movies"}>Movies</option>
+              <option value={"tvshows"}>Series</option>
             </Select>
             <Stack
               spacing={6}
@@ -75,11 +80,14 @@ const Form = inject(
                 id={"radio"}
                 defaultValue="ASC"
                 onChange={handleRadioChange}>
-                <Radio colorScheme="cyan" value="ASC" marginRight={"32px"}>
-                  Ascending
+                <Radio
+                  colorScheme="cyan"
+                  value="ASC"
+                  marginRight={{ sm: "2%", md: "20px", lg: "32px" }}>
+                  Old
                 </Radio>
                 <Radio colorScheme="teal" value="DESC">
-                  Descending
+                  Latest
                 </Radio>
               </RadioGroup>
             </Stack>

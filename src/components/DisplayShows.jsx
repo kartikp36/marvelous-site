@@ -1,29 +1,31 @@
 import Card from "./Card";
 import { observer } from "mobx-react-lite";
-import { getSnapshot, onSnapshot } from "mobx-state-tree";
 import { inject } from "mobx-react";
-import { Box, Button, Grid, SimpleGrid } from "@chakra-ui/react";
+import { Box, Button, SimpleGrid, Text } from "@chakra-ui/react";
 
-let pages = 1;
-const DisplayShows = inject("ShowStore",
-"ParamsStore")(
-  observer(({ ShowStore , ParamsStore}) => {
+const DisplayShows = inject(
+  "ShowStore",
+  "ParamsStore",
+  "FlagStore"
+)(
+  observer(({ ShowStore, ParamsStore, FlagStore }) => {
     const { getShows } = ShowStore;
-    const {
-      updatePage
-    } = ParamsStore;
-
+    const { updatePage } = ParamsStore;
     ShowStore = JSON.parse(JSON.stringify(ShowStore));
-    const handleClick = () => {
-      updatePage()
-      getShows();
+    FlagStore = JSON.parse(JSON.stringify(FlagStore));
+
+    const handleClick = async () => {
+      await updatePage();
+      await getShows();
     };
+
     return (
       <Box marginX={"auto"} maxW={"84%"}>
-        <SimpleGrid gridTemplateRows={"masonry"}
+        <SimpleGrid
+          templateRows={""}
           templateColumns={{
             base: "repeat(1, 1fr)",
-            md: "repeat(3, 1fr)",
+            md: "repeat(2, 1fr)",
             xl: "repeat(3, 1fr)",
           }}
           gap={4}
@@ -32,12 +34,25 @@ const DisplayShows = inject("ShowStore",
             <Card key={show.id} show={show} />
           ))}
         </SimpleGrid>
-        <Button
-          onClick={() => {
-            handleClick();
-          }}>
-          Load more
-        </Button>
+        {FlagStore.loadButton ? (
+          <Button
+            onClick={() => {
+              handleClick();
+            }}>
+            Load more
+          </Button>
+        ) : (
+          <Button
+            onClick={() => {
+              console.log("Scroll to top");
+              window.scrollTo({ top: 0 });
+            }}>
+            Back to top
+          </Button>
+        )}
+        <Text
+          my={4}
+          color={"gray.600"}>{`That's it, you are in the endgame now!`}</Text>
       </Box>
     );
   })

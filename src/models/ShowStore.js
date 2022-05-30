@@ -1,21 +1,26 @@
-import { isObservable, makeAutoObservable } from "mobx";
-import { types, flow, onSnapshot } from "mobx-state-tree";
+import { types, flow } from "mobx-state-tree";
 import { createContext, useContext } from "react";
 import { fetchShows } from "../services/services";
 import { ParamsStore } from "./ParamsStore";
+import { FlagStore } from './FlagStore';
 
 const Show = types.model("Show", {
   id: types.integer,
-  title: types.string,
-  release_date: types.maybeNull(types.string),
-  overview: types.maybeNull(types.string),
-  cover_url: types.maybeNull(types.string),
-  trailer_url: types.maybeNull(types.string),
-  directed_by: types.string,
-  phase: types.maybeNull(types.integer),
-  saga: types.maybeNull(types.string),
-  imdb_id: types.string,
-  post_credit_scenes: types.integer,
+  title: types.optional(types.string, "NA"),
+  release_date: types.optional(types.maybeNull(types.string), "NA"),
+  overview: types.optional(types.maybeNull(types.string), "NA"),
+  cover_url: types.optional(types.maybeNull(types.string), "NA"),
+  trailer_url: types.optional(
+    types.maybeNull(types.string),
+    "https://www.youtube.com/channel/UCvC4D8onUfXzvjTOM-dBfEA"
+  ),
+  directed_by: types.optional(types.string, "NA"),
+  phase: types.optional(types.maybeNull(types.integer), 0),
+  saga: types.optional(types.maybeNull(types.string), "NA"),
+  imdb_id: types.optional(types.string, "?companies=co0051941"),
+  post_credit_scenes: types.optional(types.integer, 0),
+  number_seasons: types.optional(types.integer, 0),
+  number_episodes: types.optional(types.integer, 0),
 });
 
 const ShowStore = types
@@ -25,14 +30,17 @@ const ShowStore = types
   .actions((self) => {
     const getShows = flow(function* () {
       const result = yield fetchShows(ParamsStore);
-
+      if(result.length < 6){
+        FlagStore.toggleLoadButton(false);
+      }else{
+        FlagStore.toggleLoadButton(true);
+      }
       if (ParamsStore.page > 1) {
-        let res = [ ...self.shows,...result ];
+        let res = [...self.shows, ...result];
         self.shows = res;
       } else {
         self.shows = result;
       }
-      console.log(JSON.parse(JSON.stringify(self.shows)));
       return self.shows;
     });
 
@@ -53,5 +61,6 @@ export function useMst() {
   }
   return store;
 }
+
 
 export default ShowStore;

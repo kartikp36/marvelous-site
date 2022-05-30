@@ -6,6 +6,7 @@ export const ParamsStore = types
     type: types.string,
     page: types.integer,
     chronology: types.optional(types.string,''),
+    order: types.optional(types.string,''),
     searchInput: types.maybeNull(types.string),
   })
   .actions((self) => {
@@ -15,15 +16,16 @@ export const ParamsStore = types
     const updateChronology = (val) => {
       self.chronology = val;
     };
-    const updatePage = () => {
+    const updatePage = ( ) => {
       self.page = self.page + 1;
     };
     const updateType = (val) => {
       self.type = val;
+      self.page = 1;
     };
     return { updateSearchInput, updateChronology, updatePage, updateType };
   })
-  .create({ searchInput: '', type: "movies", chronology: "ASC", page: 1 });
+  .create({ searchInput: '', type: "movies", chronology: "ASC", page: 1, order: 'release_date' });
 
 const RootStoreContext = createContext(ParamsStore);
 export const { Provider } = RootStoreContext;
