@@ -1,13 +1,15 @@
 # Marvelous website
 	
 Marvellous website for fans of ***Marvel Cinematic Universe***.
-It is a personal project made for purpose of learning State management library: [MobX-state-tree ](https://mobx-state-tree.js.org/)
-I have used this amazing API: [🦸Marvel Cinematic Universe API](https://github.com/AugustoMarcelo/mcuapi)
+
+It is a personal project made for purpose of learning State management library: [MobX-state-tree(MST)](https://mobx-state-tree.js.org/).
+
+I have used this amazing API: [🦸Marvel Cinematic Universe API](https://github.com/AugustoMarcelo/mcuapi).
 #### Link: http://marvelous-site.vercel.app/
 
 ## App Stack:
-	- React.js
-	- MobX State Tree
+- React.js
+- MobX State Tree
 
 ## Getting Started with Create React App
 
