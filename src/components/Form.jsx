@@ -27,7 +27,6 @@ const Form = inject(
     const { updateShowStore } = ShowStore;
     const handleChange = (e) => {
       updateSearchInput(e.target.value ? e.target.value : "");
-      console.log(searchInput);
     };
 
     const handleRadioChange = (order) => {

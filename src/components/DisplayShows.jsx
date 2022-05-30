@@ -44,8 +44,7 @@ const DisplayShows = inject(
         ) : (
           <Button
             onClick={() => {
-              console.log("Scroll to top");
-              window.scrollTo({ top: 0 });
+              window.scrollTo({top: 0, behavior: 'smooth'});
             }}>
             Back to top
           </Button>
