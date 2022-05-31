@@ -7,10 +7,14 @@ import {
   Stack,
   Radio,
   Box,
-  Button,
+  InputRightElement,
+  InputGroup,
+  IconButton,
 } from "@chakra-ui/react";
 import { observer } from "mobx-react-lite";
 import { inject } from "mobx-react";
+import { MdClear } from "@react-icons/all-files/md/MdClear";
+import {  MdSearch } from "@react-icons/all-files/md/MdSearch";
 
 const Form = inject(
   "ShowStore",
@@ -18,12 +22,8 @@ const Form = inject(
 )(
   observer(({ ShowStore, ParamsStore }) => {
     const { getShows } = ShowStore;
-    const {
-      updateChronology,
-      updateSearchInput,
-      updateType,
-      searchInput,
-    } = ParamsStore;
+    let { updateChronology, updateSearchInput, updateType, searchInput } =
+      ParamsStore;
     const { updateShowStore } = ShowStore;
     const handleChange = (e) => {
       updateSearchInput(e.target.value ? e.target.value : "");
@@ -47,20 +47,34 @@ const Form = inject(
       <Box maxW={"50%"} margin={"auto"} marginTop={"2%"}>
         <FormControl isRequired>
           <Box display={"inline-flex"}>
-            <Input
-              id="search"
-              placeholder="Search"
-              value={searchInput}
-              onChange={handleChange}
-            />
-            <Button
-              backgroundColor={"#67C7EB"}
-              color={"white"}
-              _hover={{ backgroundColor: "#6A0C0B" }}
-              type={"submit"}
-              onClick={handleSubmit}>
-              Search
-            </Button>
+            <InputGroup size="lg" width={"auto"}>
+              <Input
+                  focusBorderColor='pink.200'
+
+                id="search"
+                placeholder="Search"
+                value={searchInput}
+                onChange={handleChange}
+              />
+              <InputRightElement width="auto" marginRight={2}>
+                <IconButton
+                marginRight={2}
+                  backgroundColor={"transparent"}
+                  size="md"
+                  _hover={{ backgroundColor: "gray.200" }}
+                  icon={<MdClear size={"1.6em"}/>}
+                  onClick={() => updateSearchInput('')}>
+                </IconButton>
+                <IconButton
+                  backgroundColor={"#67C7EB"}
+                  color={"white"}
+                  icon={<MdSearch size={"1.6em"}/>}
+                  _hover={{ backgroundColor: "#6A0C0B" }}
+                  type={"submit"}
+                  onClick={handleSubmit}>
+                </IconButton>
+              </InputRightElement>
+            </InputGroup>
           </Box>
           <Box display={"block"} textAlign={"-webkit-center"} margin={"8px"}>
             <Select

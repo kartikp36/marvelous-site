@@ -4,6 +4,7 @@ import { fetchShows } from "../services/services";
 import { ParamsStore } from "./ParamsStore";
 import { FlagStore } from './FlagStore';
 
+
 const Show = types.model("Show", {
   id: types.integer,
   title: types.optional(types.string, "NA"),
@@ -25,11 +26,15 @@ const Show = types.model("Show", {
 
 const ShowStore = types
   .model("ShowStore", {
-    shows: types.array(Show),
+    shows: types.maybeNull(types.array(Show)),
   })
   .actions((self) => {
     const getShows = flow(function* () {
       const result = yield fetchShows(ParamsStore);
+      if(result.length === 0){
+        self.shows = null;
+        return;
+      }
       if(result.length < 6){
         FlagStore.toggleLoadButton(false);
       }else{

@@ -6,6 +6,7 @@ import { observer } from "mobx-react-lite";
 import Form from "../components/Form";
 import DisplayShows from "../components/DisplayShows";
 import { FlagStore } from "../models/FlagStore";
+import Footer from '../components/Footer';
 
 const App = inject("ShowStore")(
   observer(({ ShowStore }) => {
@@ -15,7 +16,7 @@ const App = inject("ShowStore")(
     }, []);
 
     return (
-      <Box className="App" textAlign={"center"} marginY={"2%"}>
+      <Box className="App" textAlign={"center"} marginTop={"2%"}>
         <Heading
           size={{ base: "xl", md: "xl", lg: "2xl" }}
           color={"#AA0505"}
@@ -26,6 +27,7 @@ const App = inject("ShowStore")(
         <Provider FlagStore={FlagStore}>
           <DisplayShows />
         </Provider>
+        <Footer/>
       </Box>
     );
   })
