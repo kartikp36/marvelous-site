@@ -2,8 +2,7 @@ import { types, flow } from "mobx-state-tree";
 import { createContext, useContext } from "react";
 import { fetchShows } from "../services/services";
 import { ParamsStore } from "./ParamsStore";
-import { FlagStore } from './FlagStore';
-
+import { FlagStore } from "./FlagStore";
 
 const Show = types.model("Show", {
   id: types.integer,
@@ -31,13 +30,14 @@ const ShowStore = types
   .actions((self) => {
     const getShows = flow(function* () {
       const result = yield fetchShows(ParamsStore);
-      if(result.length === 0){
+      if (result.length === 0) {
         self.shows = null;
+        FlagStore.toggleLoadButton(false);
         return;
       }
-      if(result.length < 6){
+      if (result.length < 6) {
         FlagStore.toggleLoadButton(false);
-      }else{
+      } else {
         FlagStore.toggleLoadButton(true);
       }
       if (ParamsStore.page > 1) {
@@ -66,6 +66,5 @@ export function useMst() {
   }
   return store;
 }
-
 
 export default ShowStore;

@@ -7,7 +7,6 @@ import {
   Image,
   SimpleGrid,
   Skeleton,
-  Stack,
   Text,
 } from "@chakra-ui/react";
 
